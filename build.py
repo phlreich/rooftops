@@ -40,14 +40,22 @@ HTML = r"""<!DOCTYPE html>
   .layout{flex:1;display:flex;min-height:0}
   #sidebar{width:320px;flex-shrink:0;overflow-y:auto;background:var(--panel);
     border-right:1px solid var(--line)}
-  .item{padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+  .item{padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;
+    display:flex;gap:11px;align-items:center}
   .item:hover{background:#1d212a}
   .item.hidden{display:none}
+  .item .thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;
+    background:#1d212a;border:1px solid var(--line)}
+  .item .body{min-width:0;flex:1}
   .item .nm{font-weight:600;display:flex;align-items:center;gap:7px}
   .item .nm .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
   .item .meta{color:var(--muted);font-size:12px;margin-top:3px}
   #map{flex:1}
-  .leaflet-popup-content{margin:12px 14px;font:13px/1.45 system-ui,sans-serif;min-width:200px}
+  .leaflet-popup-content-wrapper{overflow:hidden;padding:0}
+  .leaflet-popup-content{margin:0;font:13px/1.45 system-ui,sans-serif;width:270px!important}
+  .pop-img{display:block;width:100%;height:152px;object-fit:cover;background:#e9ecef}
+  .pop-credit{font-size:10px;color:#8a8f98;padding:4px 14px 0;text-align:right}
+  .pop-body{padding:11px 14px 13px}
   .pop-nm{font-size:15px;font-weight:650;margin-bottom:6px;color:#111}
   .badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
   .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
@@ -55,7 +63,8 @@ HTML = r"""<!DOCTYPE html>
   .badge.cat{background:#3a4150}
   .pop-row{color:#333;margin:3px 0}
   .pop-row b{color:#000}
-  .pop a{display:inline-block;margin-top:8px;color:#1565c0;text-decoration:none;font-weight:600}
+  .pop-links{margin-top:10px;display:flex;gap:16px;flex-wrap:wrap}
+  .pop-links a{color:#1565c0;text-decoration:none;font-weight:600}
   .note{font-size:11px;color:var(--muted);width:100%;margin-top:2px}
   @media(max-width:680px){
     #sidebar{display:none}
@@ -103,19 +112,33 @@ function pinIcon(entry){
   });
 }
 
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
 function popupHtml(v){
   const dir = `https://www.google.com/maps/dir/?api=1&destination=${v.lat},${v.lon}`;
   const free = v.entry === "free";
+  const img = v.image
+    ? `<img class="pop-img" src="${esc(v.image)}" alt="${esc(v.name)}" loading="lazy">
+       ${v.credit ? `<div class="pop-credit">© ${esc(v.credit)}</div>` : ""}`
+    : "";
+  const site = v.url
+    ? `<a href="${esc(v.url)}" target="_blank" rel="noopener">↗ Event page</a>` : "";
   return `<div class="pop">
-    <div class="pop-nm">${v.name}</div>
-    <div class="badges">
-      <span class="badge ${v.entry}">${free ? "Free entry" : "Paid entry"}</span>
-      <span class="badge cat">${v.category}</span>
+    ${img}
+    <div class="pop-body">
+      <div class="pop-nm">${esc(v.name)}</div>
+      <div class="badges">
+        <span class="badge ${v.entry}">${free ? "Free entry" : "Paid entry"}</span>
+        <span class="badge cat">${esc(v.category)}</span>
+      </div>
+      <div class="pop-row"><b>From ${esc(v.time)}</b></div>
+      <div class="pop-row">${esc(v.description)}</div>
+      <div class="pop-row" style="color:#666">${esc(v.address)}</div>
+      <div class="pop-links">${site}<a href="${dir}" target="_blank" rel="noopener">↗ Directions</a></div>
     </div>
-    <div class="pop-row"><b>From ${v.time}</b></div>
-    <div class="pop-row">${v.description}</div>
-    <div class="pop-row" style="color:#666">${v.address}</div>
-    <a href="${dir}" target="_blank" rel="noopener">↗ Directions</a>
   </div>`;
 }
 
@@ -126,9 +149,15 @@ VENUES.forEach((v, i) => {
     .bindPopup(popupHtml(v));
   v._item = document.createElement("div");
   v._item.className = "item";
+  const thumb = v.image
+    ? `<img class="thumb" src="${esc(v.image)}" alt="" loading="lazy">`
+    : `<div class="thumb"></div>`;
   v._item.innerHTML =
-    `<div class="nm"><span class="dot" style="background:${COLORS[v.entry]}"></span>${v.name}</div>
-     <div class="meta">From ${v.time} · ${v.category} · ${v.entry === "free" ? "Free" : "Paid"}</div>`;
+    `${thumb}
+     <div class="body">
+       <div class="nm"><span class="dot" style="background:${COLORS[v.entry]}"></span>${esc(v.name)}</div>
+       <div class="meta">From ${esc(v.time)} · ${esc(v.category)} · ${v.entry === "free" ? "Free" : "Paid"}</div>
+     </div>`;
   v._item.onclick = () => {
     map.setView([v.lat, v.lon], 16, {animate:true});
     v._marker.openPopup();
