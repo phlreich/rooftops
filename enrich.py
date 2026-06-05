@@ -15,9 +15,11 @@ Run order:  python geocode.py  ->  python enrich.py  ->  python build.py
 """
 import json
 import html
+import math
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 
@@ -125,6 +127,23 @@ def proxy_url(dam):
             f"&scale=both&mode=crop&quality={IMG_Q}&width={IMG_W}&height={IMG_H}")
 
 
+# The JSON-LD on each event page carries the venue's authoritative coordinate.
+COORD_RE = re.compile(r'"latitude":\s*([0-9.]+).{0,60}?"longitude":\s*([0-9.]+)', re.S)
+
+
+def event_coords(page):
+    m = COORD_RE.search(page)
+    return (round(float(m.group(1)), 6), round(float(m.group(2)), 6)) if m else None
+
+
+def meters(a_lat, a_lon, b_lat, b_lon):
+    dlat = math.radians(b_lat - a_lat)
+    dlon = math.radians(b_lon - a_lon)
+    x = (math.sin(dlat / 2) ** 2
+         + math.cos(math.radians(a_lat)) * math.cos(math.radians(b_lat)) * math.sin(dlon / 2) ** 2)
+    return 2 * 6371000 * math.asin(math.sqrt(x))
+
+
 def main():
     venues = json.load(open("venues.json", encoding="utf-8"))
 
@@ -137,10 +156,21 @@ def main():
     print(f"Parsed {len(cards)} event cards.")
 
     os.makedirs(IMG_DIR, exist_ok=True)
-    no_photo = []
+    no_photo, moved = [], []
     for v in venues:
         url = EVENT_BASE + SLUG[v["name"]]
         v["url"] = url
+
+        # Authoritative coordinate from the event page (overrides geocode.py's
+        # address geocoding, which can be off by hundreds of metres).
+        coords = event_coords(get(url))
+        if coords:
+            d = meters(v["lat"], v["lon"], *coords)
+            if d >= 80:
+                moved.append((v["name"], d))
+            v["lat"], v["lon"] = coords
+        time.sleep(0.3)
+
         card = cards.get(url, {})
         dam = card.get("dam")
         if dam:
@@ -159,6 +189,10 @@ def main():
     json.dump(venues, open("venues.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     print(f"\nDone. {len(venues)} venues, {len(no_photo)} without photo: {no_photo}")
+    if moved:
+        print("Coordinates corrected (>=80 m):")
+        for name, d in sorted(moved, key=lambda x: -x[1]):
+            print(f"  {d:5.0f} m  {name}")
 
 
 if __name__ == "__main__":

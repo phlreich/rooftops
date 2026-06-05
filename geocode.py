@@ -54,12 +54,15 @@ VENUES = [
     ("pme Familienservice GmbH", "Senckenberganlage 16, 60325 Frankfurt", "16:00", "free", "Family", "Family-friendly rooftop gathering."),
 ]
 
-# Manual overrides where Nominatim is unreliable (landmarks / bridges).
+# Manual overrides where Nominatim is unreliable (landmarks / bridges / boats).
+# These are the official coordinates published on each venue's Rooftop Day event
+# page. enrich.py refreshes ALL coordinates from that source, so it is the real
+# authority; these just keep a freshly-run geocode.py close to the mark.
 OVERRIDES = {
-    "Römer-Balkon (Rathaus)": (50.110523, 8.681944),
-    "Primus-Linie": (50.109970, 8.682680),       # Eiserner Steg jetty
-    "Freigut Bootshaus": (50.103780, 8.678200),  # Sachsenhausen Mainufer
-    "World Club Dome Festival": (50.068610, 8.645560),  # Deutsche Bank Park
+    "Römer-Balkon (Rathaus)": (50.110506, 8.681714),
+    "Primus-Linie": (50.108910, 8.682010),        # Eiserner Steg jetty
+    "Freigut Bootshaus": (50.107609, 8.682852),   # floating boathouse on the Main
+    "World Club Dome Festival": (50.068586, 8.645439),  # Deutsche Bank Park
 }
 
 UA = "FrankfurtRooftopMap/1.0 (personal use)"
