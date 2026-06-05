@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frankfurt Rooftop Day — Sat 6 June 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+  :root{
+    --free:#1a9850; --paid:#e0820a; --bg:#0f1115; --panel:#171a21;
+    --line:#272b35; --text:#e8eaed; --muted:#9aa0ab;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{font:14px/1.45 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);background:var(--bg);display:flex;flex-direction:column}
+  header{padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line);
+    display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  header h1{font-size:16px;margin:0;font-weight:650}
+  header .sub{color:var(--muted);font-size:12px}
+  .filters{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
+    border:1px solid var(--line);background:#1d212a;cursor:pointer;user-select:none;font-size:13px}
+  .chip input{display:none}
+  .chip .dot{width:11px;height:11px;border-radius:50%}
+  .chip.free .dot{background:var(--free)}
+  .chip.paid .dot{background:var(--paid)}
+  .chip.off{opacity:.4;filter:grayscale(.6)}
+  .chip .cnt{color:var(--muted);font-variant-numeric:tabular-nums}
+  .layout{flex:1;display:flex;min-height:0}
+  #sidebar{width:320px;flex-shrink:0;overflow-y:auto;background:var(--panel);
+    border-right:1px solid var(--line)}
+  .item{padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+  .item:hover{background:#1d212a}
+  .item.hidden{display:none}
+  .item .nm{font-weight:600;display:flex;align-items:center;gap:7px}
+  .item .nm .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .item .meta{color:var(--muted);font-size:12px;margin-top:3px}
+  #map{flex:1}
+  .leaflet-popup-content{margin:12px 14px;font:13px/1.45 system-ui,sans-serif;min-width:200px}
+  .pop-nm{font-size:15px;font-weight:650;margin-bottom:6px;color:#111}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
+  .badge.free{background:var(--free)} .badge.paid{background:var(--paid)}
+  .badge.cat{background:#3a4150}
+  .pop-row{color:#333;margin:3px 0}
+  .pop-row b{color:#000}
+  .pop a{display:inline-block;margin-top:8px;color:#1565c0;text-decoration:none;font-weight:600}
+  .note{font-size:11px;color:var(--muted);width:100%;margin-top:2px}
+  @media(max-width:680px){
+    #sidebar{display:none}
+    header h1{font-size:14px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🍹 Frankfurt Rooftop Day</h1>
+    <div class="sub">Saturday, 6 June 2026 · <span id="visCount"></span> venues shown</div>
+  </div>
+  <div class="filters">
+    <label class="chip free" id="chipFree"><input type="checkbox" checked>
+      <span class="dot"></span>Free entry <span class="cnt" id="cFree"></span></label>
+    <label class="chip paid" id="chipPaid"><input type="checkbox" checked>
+      <span class="dot"></span>Paid entry <span class="cnt" id="cPaid"></span></label>
+  </div>
+  <div class="note">Entry free/paid is a best-guess by venue type (the official page lists pricing only on each venue's own sub-page) — verify before you go. Source: visitfrankfurt.travel/rooftop-day</div>
+</header>
+<div class="layout">
+  <div id="sidebar"></div>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const VENUES = [{"name": "Museum für Kommunikation", "address": "Schaumainkai 53, 60596 Frankfurt", "time": "16:00", "entry": "paid", "category": "Museum", "description": "Rooftop terrace with guided tour.", "lat": 50.1044852, "lon": 8.6761852}, {"name": "World Club Dome Festival", "address": "Mörfelder Landstraße 362, 60528 Frankfurt", "time": "12:30", "entry": "paid", "category": "Festival", "description": "Music festival at Deutsche Bank Park with rooftop vibes.", "lat": 50.06861, "lon": 8.64556}, {"name": "Römer-Balkon (Rathaus)", "address": "Römerberg 23, 60311 Frankfurt", "time": "16:00", "entry": "free", "category": "Landmark", "description": "Open house day with balcony access at City Hall.", "lat": 50.110523, "lon": 8.681944}, {"name": "FOUR Frankfurt", "address": "Junghofstraße 5, 60323 Frankfurt", "time": "16:00", "entry": "free", "category": "Tour", "description": "Guided architectural tours.", "lat": 50.1126481, "lon": 8.6749135}, {"name": "OOSTEN", "address": "Mayfarthstraße 4, 60314 Frankfurt", "time": "14:00", "entry": "free", "category": "Bar", "description": "Bar and nightlife venue by the river.", "lat": 50.1077255, "lon": 8.7027388}, {"name": "Zentralbibliothek", "address": "Hasengasse 4, 60311 Frankfurt", "time": "21:00", "entry": "free", "category": "Culture", "description": "Evening rooftop party and nightlife.", "lat": 50.1131502, "lon": 8.6843298}, {"name": "WESTEND TOWER – Rooms and Roofs", "address": "Grüneburgweg 58-62, 60322 Frankfurt", "time": "16:00", "entry": "paid", "category": "Wellness", "description": "Yoga sessions on the rooftop.", "lat": 50.12146, "lon": 8.6712952}, {"name": "Primus-Linie", "address": "Eiserner Steg, 60311 Frankfurt", "time": "19:30", "entry": "paid", "category": "Cruise", "description": "Sunset river cruise with skyline views.", "lat": 50.10997, "lon": 8.68268}, {"name": "Villa Sander", "address": "Mainzer Landstraße 10, 60325 Frankfurt", "time": "16:00", "entry": "free", "category": "Tour", "description": "Architectural guided tour.", "lat": 50.1128103, "lon": 8.6674252}, {"name": "Frankfurt Sightseeing GmbH", "address": "Paulsplatz, 60311 Frankfurt", "time": "17:30", "entry": "paid", "category": "Tour", "description": "Hop-on-hop-off bus tours.", "lat": 50.1111598, "lon": 8.6814982}, {"name": "Alte Nikolaikirche", "address": "Am Römerberg 9, 60311 Frankfurt", "time": "19:00", "entry": "free", "category": "Church", "description": "Church roof gallery tour.", "lat": 50.1100536, "lon": 8.6818928}, {"name": "Freigut Bootshaus", "address": "Schaumainkai, 60594 Frankfurt", "time": "14:00", "entry": "free", "category": "Bar", "description": "Waterside bar and nightlife by the Main.", "lat": 50.10378, "lon": 8.6782}, {"name": "The Florentin", "address": "Paul-Ehrlich-Straße 9, 60596 Frankfurt", "time": "16:00", "entry": "free", "category": "Hotel", "description": "Urban retreat with a design focus.", "lat": 50.0973795, "lon": 8.6686416}, {"name": "Main Bad Bornheim", "address": "Am Bornheimer Hang 2, 60386 Frankfurt", "time": "16:00", "entry": "paid", "category": "Pool", "description": "Public pool with rooftop terrace.", "lat": 50.1252709, "lon": 8.7206562}, {"name": "Jüdisches Museum Frankfurt", "address": "Bertha-Pappenheim-Platz 1, 60311 Frankfurt", "time": "17:30", "entry": "paid", "category": "Museum", "description": "Culinary and cultural event.", "lat": 50.1072204, "lon": 8.6744759}, {"name": "TaunusTurm", "address": "Neue Mainzer Straße 33-35, 60311 Frankfurt", "time": "16:00", "entry": "paid", "category": "Observation", "description": "Tower observation deck and family tours.", "lat": 50.114391, "lon": 8.6724029}, {"name": "Ruby Louise Hotel & Bar", "address": "Neue Rothofstraße 8, 60313 Frankfurt", "time": "16:00", "entry": "free", "category": "Bar", "description": "Rooftop bar with evening entertainment.", "lat": 50.1137844, "lon": 8.6736777}, {"name": "OMNITURM", "address": "Große Gallusstraße 16-18, 60312 Frankfurt", "time": "17:00", "entry": "free", "category": "Bar", "description": "Rooftop nightlife venue.", "lat": 50.1115669, "lon": 8.6730856}, {"name": "OAKS Bar", "address": "Güterplatz 1, 60327 Frankfurt", "time": "16:00", "entry": "free", "category": "Bar", "description": "Bar with skyline views.", "lat": 50.1076235, "lon": 8.6549716}, {"name": "Sofitel Frankfurt Opera", "address": "Opernplatz 16, 60313 Frankfurt", "time": "17:00", "entry": "free", "category": "Bar", "description": "Elegant rooftop lounge.", "lat": 50.116053, "lon": 8.6734577}, {"name": "Lazuli Bar & Kitchen", "address": "Junghofstraße 7, 60311 Frankfurt", "time": "14:00", "entry": "free", "category": "Restaurant", "description": "Dining and beverage service.", "lat": 50.1127185, "lon": 8.6744764}, {"name": "Occhio d'Oro", "address": "Eschenheimer Tor 2, 60318 Frankfurt", "time": "16:00", "entry": "free", "category": "Restaurant", "description": "Restaurant with terrace.", "lat": 50.1175334, "lon": 8.6802251}, {"name": "Restaurant & Skybar oben", "address": "Senckenberganlage 13, 60325 Frankfurt", "time": "18:00", "entry": "free", "category": "Bar", "description": "Fine dining with sunset views.", "lat": 50.1161796, "lon": 8.6514697}, {"name": "MyZeil FOODTOPIA", "address": "Zeil 106-110, 60313 Frankfurt", "time": "17:30", "entry": "free", "category": "Food", "description": "Rooftop food court venue.", "lat": 50.115006, "lon": 8.6811677}, {"name": "The Blasky Hotel & Rooftop", "address": "Ziegelhüttenweg 43, 60598 Frankfurt", "time": "17:00", "entry": "free", "category": "Hotel", "description": "Hotel rooftop with dining.", "lat": 50.0915007, "lon": 8.6796709}, {"name": "Citybeach / CityAlm", "address": "Carl-Theodor-Reiffenstein-Platz 5, 60313 Frankfurt", "time": "10:00", "entry": "free", "category": "Beach club", "description": "Rooftop beach club atmosphere.", "lat": 50.1139503, "lon": 8.6842206}, {"name": "Gaia", "address": "Kaiserhofstraße 12, 60313 Frankfurt", "time": "16:30", "entry": "free", "category": "Bar", "description": "Rooftop lounge.", "lat": 50.1153294, "lon": 8.6751151}, {"name": "THE VIEW", "address": "Zeil 116-126, 60313 Frankfurt", "time": "09:30", "entry": "free", "category": "Bar", "description": "Department-store rooftop bar.", "lat": 50.1145202, "lon": 8.6798714}, {"name": "Radio Frankfurt Skyline Studios", "address": "Nibelungenplatz 3, 60318 Frankfurt", "time": "16:00", "entry": "free", "category": "Music", "description": "DJ sets and live music broadcast.", "lat": 50.1287794, "lon": 8.6917346}, {"name": "Upper East Site", "address": "Schwedlerstraße 8, 60314 Frankfurt", "time": "16:00", "entry": "free", "category": "Bar", "description": "Nightlife with live music.", "lat": 50.1135277, "lon": 8.7200031}, {"name": "Sabor Restaurant", "address": "Adickesallee 36, 60322 Frankfurt", "time": "16:00", "entry": "free", "category": "Restaurant", "description": "Spanish cuisine with a view.", "lat": 50.1324424, "lon": 8.6786696}, {"name": "The Suite Garden Hotel", "address": "Fellnerstraße 3, 60322 Frankfurt", "time": "13:00", "entry": "paid", "category": "Wellness", "description": "Wellness activities including pilates.", "lat": 50.1185663, "lon": 8.6763797}, {"name": "Sternwarte des Physikalischen Vereins", "address": "Robert-Mayer-Straße 2, 60325 Frankfurt", "time": "16:00", "entry": "paid", "category": "Observatory", "description": "Observatory with telescope viewings.", "lat": 50.1169426, "lon": 8.6514426}, {"name": "Rententurm (Historisches Museum)", "address": "Saalhof 1, 60311 Frankfurt", "time": "16:00", "entry": "paid", "category": "Museum", "description": "Historic tower with city views.", "lat": 50.1097568, "lon": 8.6826385}, {"name": "Städel Museum", "address": "Schaumainkai 63, 60596 Frankfurt", "time": "18:00", "entry": "paid", "category": "Museum", "description": "Rooftop terrace access.", "lat": 50.1032187, "lon": 8.6738203}, {"name": "Haus zur Goldenen Waage", "address": "Markt 5, 60311 Frankfurt", "time": "18:00", "entry": "paid", "category": "Tour", "description": "Historic building architectural tour.", "lat": 50.1106882, "lon": 8.6843911}, {"name": "Dreikönigskirche", "address": "Dreikönigsstraße 32, 60594 Frankfurt", "time": "16:00", "entry": "free", "category": "Church", "description": "Church tower access.", "lat": 50.1070067, "lon": 8.6848236}, {"name": "25hours Hotel The Trip", "address": "Niddastraße 58, 60329 Frankfurt", "time": "16:00", "entry": "free", "category": "Hotel", "description": "Glamping-style rooftop experience.", "lat": 50.1094263, "lon": 8.6631406}, {"name": "Caricatura Museum", "address": "Weckmarkt 17, 60311 Frankfurt", "time": "16:00", "entry": "paid", "category": "Museum", "description": "Comic art museum exhibition.", "lat": 50.1101269, "lon": 8.6852614}, {"name": "ROMANFABRIK", "address": "Hanauer Landstraße 186, 60314 Frankfurt", "time": "16:00", "entry": "paid", "category": "Music", "description": "Live music concert venue.", "lat": 50.1147547, "lon": 8.7228153}, {"name": "Skyline Plaza", "address": "Europa-Allee 6, 60327 Frankfurt", "time": "15:00", "entry": "free", "category": "Shopping", "description": "Rooftop garden with shopping access.", "lat": 50.1093837, "lon": 8.6527252}, {"name": "TOWER185 / FIFTY HEIGHTS", "address": "Friedrich-Ebert-Anlage 35-37, 60327 Frankfurt", "time": "16:15", "entry": "paid", "category": "Wellness", "description": "Yoga sessions on the rooftop.", "lat": 50.1101404, "lon": 8.6558993}, {"name": "pme Familienservice GmbH", "address": "Senckenberganlage 16, 60325 Frankfurt", "time": "16:00", "entry": "free", "category": "Family", "description": "Family-friendly rooftop gathering.", "lat": 50.11708, "lon": 8.6534627}];
+const COLORS = {free:"#1a9850", paid:"#e0820a"};
+
+const map = L.map("map", {scrollWheelZoom:true}).setView([50.110, 8.682], 13);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom:19, attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+function pinIcon(entry){
+  const c = COLORS[entry] || "#888";
+  return L.divIcon({
+    className:"", iconSize:[26,38], iconAnchor:[13,38], popupAnchor:[0,-34],
+    html:`<svg width="26" height="38" viewBox="0 0 26 38" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13 0C5.8 0 0 5.8 0 13c0 9.2 13 25 13 25s13-15.8 13-25C26 5.8 20.2 0 13 0z" fill="${c}"/>
+      <circle cx="13" cy="13" r="5" fill="#fff"/></svg>`
+  });
+}
+
+function popupHtml(v){
+  const dir = `https://www.google.com/maps/dir/?api=1&destination=${v.lat},${v.lon}`;
+  const free = v.entry === "free";
+  return `<div class="pop">
+    <div class="pop-nm">${v.name}</div>
+    <div class="badges">
+      <span class="badge ${v.entry}">${free ? "Free entry" : "Paid entry"}</span>
+      <span class="badge cat">${v.category}</span>
+    </div>
+    <div class="pop-row"><b>From ${v.time}</b></div>
+    <div class="pop-row">${v.description}</div>
+    <div class="pop-row" style="color:#666">${v.address}</div>
+    <a href="${dir}" target="_blank" rel="noopener">↗ Directions</a>
+  </div>`;
+}
+
+// Build markers + sidebar
+const sidebar = document.getElementById("sidebar");
+VENUES.forEach((v, i) => {
+  v._marker = L.marker([v.lat, v.lon], {icon: pinIcon(v.entry)})
+    .bindPopup(popupHtml(v));
+  v._item = document.createElement("div");
+  v._item.className = "item";
+  v._item.innerHTML =
+    `<div class="nm"><span class="dot" style="background:${COLORS[v.entry]}"></span>${v.name}</div>
+     <div class="meta">From ${v.time} · ${v.category} · ${v.entry === "free" ? "Free" : "Paid"}</div>`;
+  v._item.onclick = () => {
+    map.setView([v.lat, v.lon], 16, {animate:true});
+    v._marker.openPopup();
+  };
+  sidebar.appendChild(v._item);
+});
+
+const counts = {free:0, paid:0};
+VENUES.forEach(v => counts[v.entry]++);
+document.getElementById("cFree").textContent = `(${counts.free})`;
+document.getElementById("cPaid").textContent = `(${counts.paid})`;
+
+const chipFree = document.getElementById("chipFree");
+const chipPaid = document.getElementById("chipPaid");
+const cbFree = chipFree.querySelector("input");
+const cbPaid = chipPaid.querySelector("input");
+
+function applyFilter(){
+  const show = {free: cbFree.checked, paid: cbPaid.checked};
+  chipFree.classList.toggle("off", !show.free);
+  chipPaid.classList.toggle("off", !show.paid);
+  let vis = 0;
+  VENUES.forEach(v => {
+    const on = show[v.entry];
+    if (on){ v._marker.addTo(map); v._item.classList.remove("hidden"); vis++; }
+    else { map.removeLayer(v._marker); v._item.classList.add("hidden"); }
+  });
+  document.getElementById("visCount").textContent = vis;
+}
+cbFree.onchange = applyFilter;
+cbPaid.onchange = applyFilter;
+
+applyFilter();
+map.fitBounds(VENUES.map(v => [v.lat, v.lon]), {padding:[40,40]});
+</script>
+</body>
+</html>

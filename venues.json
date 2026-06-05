@@ -1,0 +1,432 @@
+[
+  {
+    "name": "Museum für Kommunikation",
+    "address": "Schaumainkai 53, 60596 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Museum",
+    "description": "Rooftop terrace with guided tour.",
+    "lat": 50.1044852,
+    "lon": 8.6761852
+  },
+  {
+    "name": "World Club Dome Festival",
+    "address": "Mörfelder Landstraße 362, 60528 Frankfurt",
+    "time": "12:30",
+    "entry": "paid",
+    "category": "Festival",
+    "description": "Music festival at Deutsche Bank Park with rooftop vibes.",
+    "lat": 50.06861,
+    "lon": 8.64556
+  },
+  {
+    "name": "Römer-Balkon (Rathaus)",
+    "address": "Römerberg 23, 60311 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Landmark",
+    "description": "Open house day with balcony access at City Hall.",
+    "lat": 50.110523,
+    "lon": 8.681944
+  },
+  {
+    "name": "FOUR Frankfurt",
+    "address": "Junghofstraße 5, 60323 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Tour",
+    "description": "Guided architectural tours.",
+    "lat": 50.1126481,
+    "lon": 8.6749135
+  },
+  {
+    "name": "OOSTEN",
+    "address": "Mayfarthstraße 4, 60314 Frankfurt",
+    "time": "14:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Bar and nightlife venue by the river.",
+    "lat": 50.1077255,
+    "lon": 8.7027388
+  },
+  {
+    "name": "Zentralbibliothek",
+    "address": "Hasengasse 4, 60311 Frankfurt",
+    "time": "21:00",
+    "entry": "free",
+    "category": "Culture",
+    "description": "Evening rooftop party and nightlife.",
+    "lat": 50.1131502,
+    "lon": 8.6843298
+  },
+  {
+    "name": "WESTEND TOWER – Rooms and Roofs",
+    "address": "Grüneburgweg 58-62, 60322 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Wellness",
+    "description": "Yoga sessions on the rooftop.",
+    "lat": 50.12146,
+    "lon": 8.6712952
+  },
+  {
+    "name": "Primus-Linie",
+    "address": "Eiserner Steg, 60311 Frankfurt",
+    "time": "19:30",
+    "entry": "paid",
+    "category": "Cruise",
+    "description": "Sunset river cruise with skyline views.",
+    "lat": 50.10997,
+    "lon": 8.68268
+  },
+  {
+    "name": "Villa Sander",
+    "address": "Mainzer Landstraße 10, 60325 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Tour",
+    "description": "Architectural guided tour.",
+    "lat": 50.1128103,
+    "lon": 8.6674252
+  },
+  {
+    "name": "Frankfurt Sightseeing GmbH",
+    "address": "Paulsplatz, 60311 Frankfurt",
+    "time": "17:30",
+    "entry": "paid",
+    "category": "Tour",
+    "description": "Hop-on-hop-off bus tours.",
+    "lat": 50.1111598,
+    "lon": 8.6814982
+  },
+  {
+    "name": "Alte Nikolaikirche",
+    "address": "Am Römerberg 9, 60311 Frankfurt",
+    "time": "19:00",
+    "entry": "free",
+    "category": "Church",
+    "description": "Church roof gallery tour.",
+    "lat": 50.1100536,
+    "lon": 8.6818928
+  },
+  {
+    "name": "Freigut Bootshaus",
+    "address": "Schaumainkai, 60594 Frankfurt",
+    "time": "14:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Waterside bar and nightlife by the Main.",
+    "lat": 50.10378,
+    "lon": 8.6782
+  },
+  {
+    "name": "The Florentin",
+    "address": "Paul-Ehrlich-Straße 9, 60596 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Hotel",
+    "description": "Urban retreat with a design focus.",
+    "lat": 50.0973795,
+    "lon": 8.6686416
+  },
+  {
+    "name": "Main Bad Bornheim",
+    "address": "Am Bornheimer Hang 2, 60386 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Pool",
+    "description": "Public pool with rooftop terrace.",
+    "lat": 50.1252709,
+    "lon": 8.7206562
+  },
+  {
+    "name": "Jüdisches Museum Frankfurt",
+    "address": "Bertha-Pappenheim-Platz 1, 60311 Frankfurt",
+    "time": "17:30",
+    "entry": "paid",
+    "category": "Museum",
+    "description": "Culinary and cultural event.",
+    "lat": 50.1072204,
+    "lon": 8.6744759
+  },
+  {
+    "name": "TaunusTurm",
+    "address": "Neue Mainzer Straße 33-35, 60311 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Observation",
+    "description": "Tower observation deck and family tours.",
+    "lat": 50.114391,
+    "lon": 8.6724029
+  },
+  {
+    "name": "Ruby Louise Hotel & Bar",
+    "address": "Neue Rothofstraße 8, 60313 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Rooftop bar with evening entertainment.",
+    "lat": 50.1137844,
+    "lon": 8.6736777
+  },
+  {
+    "name": "OMNITURM",
+    "address": "Große Gallusstraße 16-18, 60312 Frankfurt",
+    "time": "17:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Rooftop nightlife venue.",
+    "lat": 50.1115669,
+    "lon": 8.6730856
+  },
+  {
+    "name": "OAKS Bar",
+    "address": "Güterplatz 1, 60327 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Bar with skyline views.",
+    "lat": 50.1076235,
+    "lon": 8.6549716
+  },
+  {
+    "name": "Sofitel Frankfurt Opera",
+    "address": "Opernplatz 16, 60313 Frankfurt",
+    "time": "17:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Elegant rooftop lounge.",
+    "lat": 50.116053,
+    "lon": 8.6734577
+  },
+  {
+    "name": "Lazuli Bar & Kitchen",
+    "address": "Junghofstraße 7, 60311 Frankfurt",
+    "time": "14:00",
+    "entry": "free",
+    "category": "Restaurant",
+    "description": "Dining and beverage service.",
+    "lat": 50.1127185,
+    "lon": 8.6744764
+  },
+  {
+    "name": "Occhio d'Oro",
+    "address": "Eschenheimer Tor 2, 60318 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Restaurant",
+    "description": "Restaurant with terrace.",
+    "lat": 50.1175334,
+    "lon": 8.6802251
+  },
+  {
+    "name": "Restaurant & Skybar oben",
+    "address": "Senckenberganlage 13, 60325 Frankfurt",
+    "time": "18:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Fine dining with sunset views.",
+    "lat": 50.1161796,
+    "lon": 8.6514697
+  },
+  {
+    "name": "MyZeil FOODTOPIA",
+    "address": "Zeil 106-110, 60313 Frankfurt",
+    "time": "17:30",
+    "entry": "free",
+    "category": "Food",
+    "description": "Rooftop food court venue.",
+    "lat": 50.115006,
+    "lon": 8.6811677
+  },
+  {
+    "name": "The Blasky Hotel & Rooftop",
+    "address": "Ziegelhüttenweg 43, 60598 Frankfurt",
+    "time": "17:00",
+    "entry": "free",
+    "category": "Hotel",
+    "description": "Hotel rooftop with dining.",
+    "lat": 50.0915007,
+    "lon": 8.6796709
+  },
+  {
+    "name": "Citybeach / CityAlm",
+    "address": "Carl-Theodor-Reiffenstein-Platz 5, 60313 Frankfurt",
+    "time": "10:00",
+    "entry": "free",
+    "category": "Beach club",
+    "description": "Rooftop beach club atmosphere.",
+    "lat": 50.1139503,
+    "lon": 8.6842206
+  },
+  {
+    "name": "Gaia",
+    "address": "Kaiserhofstraße 12, 60313 Frankfurt",
+    "time": "16:30",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Rooftop lounge.",
+    "lat": 50.1153294,
+    "lon": 8.6751151
+  },
+  {
+    "name": "THE VIEW",
+    "address": "Zeil 116-126, 60313 Frankfurt",
+    "time": "09:30",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Department-store rooftop bar.",
+    "lat": 50.1145202,
+    "lon": 8.6798714
+  },
+  {
+    "name": "Radio Frankfurt Skyline Studios",
+    "address": "Nibelungenplatz 3, 60318 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Music",
+    "description": "DJ sets and live music broadcast.",
+    "lat": 50.1287794,
+    "lon": 8.6917346
+  },
+  {
+    "name": "Upper East Site",
+    "address": "Schwedlerstraße 8, 60314 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Bar",
+    "description": "Nightlife with live music.",
+    "lat": 50.1135277,
+    "lon": 8.7200031
+  },
+  {
+    "name": "Sabor Restaurant",
+    "address": "Adickesallee 36, 60322 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Restaurant",
+    "description": "Spanish cuisine with a view.",
+    "lat": 50.1324424,
+    "lon": 8.6786696
+  },
+  {
+    "name": "The Suite Garden Hotel",
+    "address": "Fellnerstraße 3, 60322 Frankfurt",
+    "time": "13:00",
+    "entry": "paid",
+    "category": "Wellness",
+    "description": "Wellness activities including pilates.",
+    "lat": 50.1185663,
+    "lon": 8.6763797
+  },
+  {
+    "name": "Sternwarte des Physikalischen Vereins",
+    "address": "Robert-Mayer-Straße 2, 60325 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Observatory",
+    "description": "Observatory with telescope viewings.",
+    "lat": 50.1169426,
+    "lon": 8.6514426
+  },
+  {
+    "name": "Rententurm (Historisches Museum)",
+    "address": "Saalhof 1, 60311 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Museum",
+    "description": "Historic tower with city views.",
+    "lat": 50.1097568,
+    "lon": 8.6826385
+  },
+  {
+    "name": "Städel Museum",
+    "address": "Schaumainkai 63, 60596 Frankfurt",
+    "time": "18:00",
+    "entry": "paid",
+    "category": "Museum",
+    "description": "Rooftop terrace access.",
+    "lat": 50.1032187,
+    "lon": 8.6738203
+  },
+  {
+    "name": "Haus zur Goldenen Waage",
+    "address": "Markt 5, 60311 Frankfurt",
+    "time": "18:00",
+    "entry": "paid",
+    "category": "Tour",
+    "description": "Historic building architectural tour.",
+    "lat": 50.1106882,
+    "lon": 8.6843911
+  },
+  {
+    "name": "Dreikönigskirche",
+    "address": "Dreikönigsstraße 32, 60594 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Church",
+    "description": "Church tower access.",
+    "lat": 50.1070067,
+    "lon": 8.6848236
+  },
+  {
+    "name": "25hours Hotel The Trip",
+    "address": "Niddastraße 58, 60329 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Hotel",
+    "description": "Glamping-style rooftop experience.",
+    "lat": 50.1094263,
+    "lon": 8.6631406
+  },
+  {
+    "name": "Caricatura Museum",
+    "address": "Weckmarkt 17, 60311 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Museum",
+    "description": "Comic art museum exhibition.",
+    "lat": 50.1101269,
+    "lon": 8.6852614
+  },
+  {
+    "name": "ROMANFABRIK",
+    "address": "Hanauer Landstraße 186, 60314 Frankfurt",
+    "time": "16:00",
+    "entry": "paid",
+    "category": "Music",
+    "description": "Live music concert venue.",
+    "lat": 50.1147547,
+    "lon": 8.7228153
+  },
+  {
+    "name": "Skyline Plaza",
+    "address": "Europa-Allee 6, 60327 Frankfurt",
+    "time": "15:00",
+    "entry": "free",
+    "category": "Shopping",
+    "description": "Rooftop garden with shopping access.",
+    "lat": 50.1093837,
+    "lon": 8.6527252
+  },
+  {
+    "name": "TOWER185 / FIFTY HEIGHTS",
+    "address": "Friedrich-Ebert-Anlage 35-37, 60327 Frankfurt",
+    "time": "16:15",
+    "entry": "paid",
+    "category": "Wellness",
+    "description": "Yoga sessions on the rooftop.",
+    "lat": 50.1101404,
+    "lon": 8.6558993
+  },
+  {
+    "name": "pme Familienservice GmbH",
+    "address": "Senckenberganlage 16, 60325 Frankfurt",
+    "time": "16:00",
+    "entry": "free",
+    "category": "Family",
+    "description": "Family-friendly rooftop gathering.",
+    "lat": 50.11708,
+    "lon": 8.6534627
+  }
+]
