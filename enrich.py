@@ -127,13 +127,20 @@ def proxy_url(dam):
             f"&scale=both&mode=crop&quality={IMG_Q}&width={IMG_W}&height={IMG_H}")
 
 
-# The JSON-LD on each event page carries the venue's authoritative coordinate.
+# The JSON-LD on each event page carries the venue's authoritative coordinate
+# and a set of "RTD <tag>" keywords (booking + free/paid, set by the organiser).
 COORD_RE = re.compile(r'"latitude":\s*([0-9.]+).{0,60}?"longitude":\s*([0-9.]+)', re.S)
+KEYWORDS_RE = re.compile(r'"keywords":"([^"]*)"')
 
 
 def event_coords(page):
     m = COORD_RE.search(page)
     return (round(float(m.group(1)), 6), round(float(m.group(2)), 6)) if m else None
+
+
+def rtd_tags(page):
+    m = KEYWORDS_RE.search(page)
+    return {t.strip() for t in m.group(1).split(",")} if m else set()
 
 
 def meters(a_lat, a_lon, b_lat, b_lon):
@@ -156,19 +163,29 @@ def main():
     print(f"Parsed {len(cards)} event cards.")
 
     os.makedirs(IMG_DIR, exist_ok=True)
-    no_photo, moved = [], []
+    no_photo, moved, entry_fixed = [], [], []
     for v in venues:
         url = EVENT_BASE + SLUG[v["name"]]
         v["url"] = url
+        page = get(url)
 
         # Authoritative coordinate from the event page (overrides geocode.py's
         # address geocoding, which can be off by hundreds of metres).
-        coords = event_coords(get(url))
+        coords = event_coords(page)
         if coords:
             d = meters(v["lat"], v["lon"], *coords)
             if d >= 80:
                 moved.append((v["name"], d))
             v["lat"], v["lon"] = coords
+
+        # Booking + free/paid from the organiser's RTD keyword tags.
+        tags = rtd_tags(page)
+        v["booking"] = "RTD Reservierung" in tags
+        if "RTD kostenpflichtig" in tags or "RTD kostenfrei" in tags:
+            entry = "paid" if "RTD kostenpflichtig" in tags else "free"
+            if entry != v["entry"]:
+                entry_fixed.append((v["name"], v["entry"], entry))
+            v["entry"] = entry
         time.sleep(0.3)
 
         card = cards.get(url, {})
@@ -188,11 +205,17 @@ def main():
 
     json.dump(venues, open("venues.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
+    booking_req = sum(1 for v in venues if v.get("booking"))
     print(f"\nDone. {len(venues)} venues, {len(no_photo)} without photo: {no_photo}")
+    print(f"Booking: {booking_req} required, {len(venues) - booking_req} walk-in.")
     if moved:
         print("Coordinates corrected (>=80 m):")
         for name, d in sorted(moved, key=lambda x: -x[1]):
             print(f"  {d:5.0f} m  {name}")
+    if entry_fixed:
+        print(f"Entry corrected from source ({len(entry_fixed)}):")
+        for name, was, now in entry_fixed:
+            print(f"  {was:>4} -> {now:<4}  {name}")
 
 
 if __name__ == "__main__":

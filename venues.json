@@ -10,7 +10,8 @@
     "lon": 8.675826,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-museum-fuer-kommunikation",
     "credit": "Museum für Kommunikation Frankfurt",
-    "image": "images/museum-fuer-kommunikation.webp"
+    "image": "images/museum-fuer-kommunikation.webp",
+    "booking": false
   },
   {
     "name": "World Club Dome Festival",
@@ -23,7 +24,8 @@
     "lon": 8.645439,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-beim-world-club-dome-festival",
     "credit": "World Club Dome Festival, Julien Duval",
-    "image": "images/world-club-dome-festival.webp"
+    "image": "images/world-club-dome-festival.webp",
+    "booking": true
   },
   {
     "name": "Römer-Balkon (Rathaus)",
@@ -36,7 +38,8 @@
     "lon": 8.681714,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-auf-dem-roemer-balkon",
     "credit": "Stadt Frankfurt, Jan Hassenpflug",
-    "image": "images/roemer-balkon-rathaus.webp"
+    "image": "images/roemer-balkon-rathaus.webp",
+    "booking": true
   },
   {
     "name": "FOUR Frankfurt",
@@ -49,7 +52,8 @@
     "lon": 8.674914,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-four-frankfurt",
     "credit": "FOUR Frankfurt",
-    "image": "images/four-frankfurt.webp"
+    "image": "images/four-frankfurt.webp",
+    "booking": false
   },
   {
     "name": "OOSTEN",
@@ -62,7 +66,8 @@
     "lon": 8.702733,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-oosten",
     "credit": "OOSTEN",
-    "image": "images/oosten.webp"
+    "image": "images/oosten.webp",
+    "booking": false
   },
   {
     "name": "Zentralbibliothek",
@@ -75,7 +80,8 @@
     "lon": 8.684322,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-zentralbibliothek",
     "credit": "Zentralbibliothek, Alexander Habermehl",
-    "image": "images/zentralbibliothek.webp"
+    "image": "images/zentralbibliothek.webp",
+    "booking": false
   },
   {
     "name": "WESTEND TOWER – Rooms and Roofs",
@@ -88,7 +94,8 @@
     "lon": 8.671295,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-westend-tower-rooms-and-roofs",
     "credit": "WESTEND TOWER Rooms and Roofs, Claudia Simchen",
-    "image": "images/westend-tower-rooms-and-roofs.webp"
+    "image": "images/westend-tower-rooms-and-roofs.webp",
+    "booking": true
   },
   {
     "name": "Primus-Linie",
@@ -101,20 +108,22 @@
     "lon": 8.68201,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-mit-der-primus-linie-sunset-x-skyline-tour",
     "credit": "Primus-Linie",
-    "image": "images/primus-linie.webp"
+    "image": "images/primus-linie.webp",
+    "booking": true
   },
   {
     "name": "Villa Sander",
     "address": "Mainzer Landstraße 10, 60325 Frankfurt",
     "time": "16:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Tour",
     "description": "Architectural guided tour.",
     "lat": 50.11281,
     "lon": 8.667425,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-villa-sander",
     "credit": "Satellite Office Villa Sander",
-    "image": "images/villa-sander.webp"
+    "image": "images/villa-sander.webp",
+    "booking": true
   },
   {
     "name": "Frankfurt Sightseeing GmbH",
@@ -127,7 +136,8 @@
     "lon": 8.68157,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-bei-der-frankfurt-sightseeing-gmbh",
     "credit": "Frankfurt Sightseeing GmbH",
-    "image": "images/frankfurt-sightseeing-gmbh.webp"
+    "image": "images/frankfurt-sightseeing-gmbh.webp",
+    "booking": false
   },
   {
     "name": "Alte Nikolaikirche",
@@ -140,20 +150,22 @@
     "lon": 8.682362,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-auf-der-dachgalerie-der-alten-nikolaikirche",
     "credit": "Ev. -luth. St. Paulsgemeinde",
-    "image": "images/alte-nikolaikirche.webp"
+    "image": "images/alte-nikolaikirche.webp",
+    "booking": false
   },
   {
     "name": "Freigut Bootshaus",
     "address": "Schaumainkai, 60594 Frankfurt",
     "time": "14:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Bar",
     "description": "Waterside bar and nightlife by the Main.",
     "lat": 50.107609,
     "lon": 8.682852,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-freigut-bootshaus",
     "credit": "Freigut Bootshaus, Nikita Kulikov",
-    "image": "images/freigut-bootshaus.webp"
+    "image": "images/freigut-bootshaus.webp",
+    "booking": false
   },
   {
     "name": "The Florentin",
@@ -166,7 +178,8 @@
     "lon": 8.668867,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-the-florentin",
     "credit": "The Florentin",
-    "image": "images/the-florentin.webp"
+    "image": "images/the-florentin.webp",
+    "booking": false
   },
   {
     "name": "Main Bad Bornheim",
@@ -179,7 +192,8 @@
     "lon": 8.720661,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-main-bad-bornheim",
     "credit": "BäderBetriebe Frankfurt GmbH",
-    "image": "images/main-bad-bornheim.webp"
+    "image": "images/main-bad-bornheim.webp",
+    "booking": false
   },
   {
     "name": "Jüdisches Museum Frankfurt",
@@ -192,7 +206,8 @@
     "lon": 8.674473,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-life-deli-im-juedischen-museum-frankfurt",
     "credit": "Jüdisches Museum Frankfurt, Christoph Packhieser",
-    "image": "images/juedisches-museum-frankfurt.webp"
+    "image": "images/juedisches-museum-frankfurt.webp",
+    "booking": false
   },
   {
     "name": "TaunusTurm",
@@ -205,7 +220,8 @@
     "lon": 8.672971,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-auf-dem-taunusturm",
     "credit": "TaunusTurm, Klaus Helbig",
-    "image": "images/taunusturm.webp"
+    "image": "images/taunusturm.webp",
+    "booking": true
   },
   {
     "name": "Ruby Louise Hotel & Bar",
@@ -218,20 +234,22 @@
     "lon": 8.673134,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-ruby-louise-hotel-bar",
     "credit": "Ruby GmbH",
-    "image": "images/ruby-louise-hotel-bar.webp"
+    "image": "images/ruby-louise-hotel-bar.webp",
+    "booking": false
   },
   {
     "name": "OMNITURM",
     "address": "Große Gallusstraße 16-18, 60312 Frankfurt",
     "time": "17:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Bar",
     "description": "Rooftop nightlife venue.",
     "lat": 50.111567,
     "lon": 8.673086,
     "url": "https://www.visitfrankfurt.travel/event/abgesagt-rooftop-day-auf-der-omniturm-dachterrasse",
     "credit": "Daniel Weiner",
-    "image": "images/omniturm.webp"
+    "image": "images/omniturm.webp",
+    "booking": true
   },
   {
     "name": "OAKS Bar",
@@ -244,20 +262,22 @@
     "lon": 8.654955,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-oaks-bar-im-nh-collection-frankfurt-spin",
     "credit": "NH Collection Frankfurt Spin Tower",
-    "image": "images/oaks-bar.webp"
+    "image": "images/oaks-bar.webp",
+    "booking": false
   },
   {
     "name": "Sofitel Frankfurt Opera",
     "address": "Opernplatz 16, 60313 Frankfurt",
     "time": "17:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Bar",
     "description": "Elegant rooftop lounge.",
     "lat": 50.115935,
     "lon": 8.673513,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-sofitel-frankfurt-opera",
     "credit": "Sofitel Frankfurt Opera",
-    "image": "images/sofitel-frankfurt-opera.webp"
+    "image": "images/sofitel-frankfurt-opera.webp",
+    "booking": true
   },
   {
     "name": "Lazuli Bar & Kitchen",
@@ -270,7 +290,8 @@
     "lon": 8.673915,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-lazuli-bar-kitchen-kimpton-main-frankfurt",
     "credit": "Kimpton Main Frankfurt",
-    "image": "images/lazuli-bar-kitchen.webp"
+    "image": "images/lazuli-bar-kitchen.webp",
+    "booking": false
   },
   {
     "name": "Occhio d'Oro",
@@ -283,7 +304,8 @@
     "lon": 8.680201,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-occhio-doro",
     "credit": "Occhio d'Oro",
-    "image": "images/occhio-doro.webp"
+    "image": "images/occhio-doro.webp",
+    "booking": true
   },
   {
     "name": "Restaurant & Skybar oben",
@@ -296,7 +318,8 @@
     "lon": 8.65147,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-restaurant-skybar-oben",
     "credit": "Walter Luttenberger Photography",
-    "image": "images/restaurant-skybar-oben.webp"
+    "image": "images/restaurant-skybar-oben.webp",
+    "booking": false
   },
   {
     "name": "MyZeil FOODTOPIA",
@@ -309,7 +332,8 @@
     "lon": 8.681636,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-foodtopia-im-shopping-center-myzeil",
     "credit": "Foodtopia MyZeil",
-    "image": "images/myzeil-foodtopia.webp"
+    "image": "images/myzeil-foodtopia.webp",
+    "booking": false
   },
   {
     "name": "The Blasky Hotel & Rooftop",
@@ -322,7 +346,8 @@
     "lon": 8.679661,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-the-blasky-hotel-rooftop",
     "credit": "The Blasky, Melina Leibrand",
-    "image": "images/the-blasky-hotel-rooftop.webp"
+    "image": "images/the-blasky-hotel-rooftop.webp",
+    "booking": false
   },
   {
     "name": "Citybeach / CityAlm",
@@ -335,20 +360,22 @@
     "lon": 8.684531,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-citybeach",
     "credit": "#visitfrankfurt, plazy, Isabela Pacini | CC-BY-SA",
-    "image": "images/citybeach-cityalm.webp"
+    "image": "images/citybeach-cityalm.webp",
+    "booking": true
   },
   {
     "name": "Gaia",
     "address": "Kaiserhofstraße 12, 60313 Frankfurt",
     "time": "16:30",
-    "entry": "free",
+    "entry": "paid",
     "category": "Bar",
     "description": "Rooftop lounge.",
     "lat": 50.115258,
     "lon": 8.675553,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-gaia",
     "credit": "Lisa Lang",
-    "image": "images/gaia.webp"
+    "image": "images/gaia.webp",
+    "booking": false
   },
   {
     "name": "THE VIEW",
@@ -361,33 +388,36 @@
     "lon": 8.679874,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-the-view",
     "credit": "GALERIA Restaurant GmbH & Co. KG",
-    "image": "images/the-view.webp"
+    "image": "images/the-view.webp",
+    "booking": false
   },
   {
     "name": "Radio Frankfurt Skyline Studios",
     "address": "Nibelungenplatz 3, 60318 Frankfurt",
     "time": "16:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Music",
     "description": "DJ sets and live music broadcast.",
     "lat": 50.128832,
     "lon": 8.691799,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-bei-den-radio-frankfurt-skyline-studios",
     "credit": "Radio Frankfurt- Skyline Studios",
-    "image": "images/radio-frankfurt-skyline-studios.webp"
+    "image": "images/radio-frankfurt-skyline-studios.webp",
+    "booking": true
   },
   {
     "name": "Upper East Site",
     "address": "Schwedlerstraße 8, 60314 Frankfurt",
     "time": "16:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Bar",
     "description": "Nightlife with live music.",
     "lat": 50.113528,
     "lon": 8.720003,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-upper-east-site",
     "credit": "Upper East Side, Martin Joppen",
-    "image": "images/upper-east-site.webp"
+    "image": "images/upper-east-site.webp",
+    "booking": true
   },
   {
     "name": "Sabor Restaurant",
@@ -398,7 +428,8 @@
     "description": "Spanish cuisine with a view.",
     "lat": 50.132539,
     "lon": 8.678545,
-    "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-sabor-restaurant"
+    "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-sabor-restaurant",
+    "booking": false
   },
   {
     "name": "The Suite Garden Hotel",
@@ -411,33 +442,36 @@
     "lon": 8.67638,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-the-suite-garden-hotel",
     "credit": "The Suite Garden Hotel",
-    "image": "images/the-suite-garden-hotel.webp"
+    "image": "images/the-suite-garden-hotel.webp",
+    "booking": false
   },
   {
     "name": "Sternwarte des Physikalischen Vereins",
     "address": "Robert-Mayer-Straße 2, 60325 Frankfurt",
     "time": "16:00",
-    "entry": "paid",
+    "entry": "free",
     "category": "Observatory",
     "description": "Observatory with telescope viewings.",
     "lat": 50.116966,
     "lon": 8.651433,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-sternwarte-des-physikalischen-vereins",
     "credit": "Sternwarte des Physikalischen Vereins, Jörg Huefner",
-    "image": "images/sternwarte-des-physikalischen-vereins.webp"
+    "image": "images/sternwarte-des-physikalischen-vereins.webp",
+    "booking": false
   },
   {
     "name": "Rententurm (Historisches Museum)",
     "address": "Saalhof 1, 60311 Frankfurt",
     "time": "16:00",
-    "entry": "paid",
+    "entry": "free",
     "category": "Museum",
     "description": "Historic tower with city views.",
     "lat": 50.109606,
     "lon": 8.682447,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-rententurm-im-historischen-museum-frankfurt",
     "credit": "Historisches Museum Frankfurt, Petra Welzel",
-    "image": "images/rententurm-historisches-museum.webp"
+    "image": "images/rententurm-historisches-museum.webp",
+    "booking": true
   },
   {
     "name": "Städel Museum",
@@ -450,20 +484,22 @@
     "lon": 8.673858,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-auf-dem-staedel-dach-im-staedel-museum",
     "credit": "Städel Museum",
-    "image": "images/staedel-museum.webp"
+    "image": "images/staedel-museum.webp",
+    "booking": true
   },
   {
     "name": "Haus zur Goldenen Waage",
     "address": "Markt 5, 60311 Frankfurt",
     "time": "18:00",
-    "entry": "paid",
+    "entry": "free",
     "category": "Tour",
     "description": "Historic building architectural tour.",
     "lat": 50.110756,
     "lon": 8.68446,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-belvederchen-im-haus-zur-goldenen-waage",
     "credit": "Historisches Museum Frankfurt, C. T. Reiffenstein",
-    "image": "images/haus-zur-goldenen-waage.webp"
+    "image": "images/haus-zur-goldenen-waage.webp",
+    "booking": true
   },
   {
     "name": "Dreikönigskirche",
@@ -476,20 +512,22 @@
     "lon": 8.685134,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-dreikoenigskirche",
     "credit": "Evangelisch-Lutherische Dreikönigsgemeinde Frankfurt-Sachsenhausen",
-    "image": "images/dreikoenigskirche.webp"
+    "image": "images/dreikoenigskirche.webp",
+    "booking": true
   },
   {
     "name": "25hours Hotel The Trip",
     "address": "Niddastraße 58, 60329 Frankfurt",
     "time": "16:00",
-    "entry": "free",
+    "entry": "paid",
     "category": "Hotel",
     "description": "Glamping-style rooftop experience.",
     "lat": 50.108463,
     "lon": 8.66582,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-25hours-hotel-the-trip",
     "credit": "25hours Hotel The Trip, Globetrotter",
-    "image": "images/25hours-hotel-the-trip.webp"
+    "image": "images/25hours-hotel-the-trip.webp",
+    "booking": true
   },
   {
     "name": "Caricatura Museum",
@@ -502,7 +540,8 @@
     "lon": 8.685261,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-caricatura-museum-frankfurt-museum-fuer-komische-kunst",
     "credit": "CMF, K. Schliephake",
-    "image": "images/caricatura-museum.webp"
+    "image": "images/caricatura-museum.webp",
+    "booking": false
   },
   {
     "name": "ROMANFABRIK",
@@ -515,7 +554,8 @@
     "lon": 8.723056,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-in-der-romanfabrik",
     "credit": "Ulla Büker",
-    "image": "images/romanfabrik.webp"
+    "image": "images/romanfabrik.webp",
+    "booking": false
   },
   {
     "name": "Skyline Plaza",
@@ -528,20 +568,22 @@
     "lon": 8.652796,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-im-skyline-garden-rooftop-des-skyline-plaza",
     "credit": "ECE, Heiko Meyer",
-    "image": "images/skyline-plaza.webp"
+    "image": "images/skyline-plaza.webp",
+    "booking": false
   },
   {
     "name": "TOWER185 / FIFTY HEIGHTS",
     "address": "Friedrich-Ebert-Anlage 35-37, 60327 Frankfurt",
     "time": "16:15",
-    "entry": "paid",
+    "entry": "free",
     "category": "Wellness",
     "description": "Yoga sessions on the rooftop.",
     "lat": 50.11014,
     "lon": 8.655899,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-auf-dem-tower185/fifty-heights",
     "credit": "TOWER185",
-    "image": "images/tower185-fifty-heights.webp"
+    "image": "images/tower185-fifty-heights.webp",
+    "booking": true
   },
   {
     "name": "pme Familienservice GmbH",
@@ -554,6 +596,7 @@
     "lon": 8.653463,
     "url": "https://www.visitfrankfurt.travel/event/rooftop-day-bei-der-pme-familienservice-gmbh",
     "credit": "pme Familienservice GmbH",
-    "image": "images/pme-familienservice-gmbh.webp"
+    "image": "images/pme-familienservice-gmbh.webp",
+    "booking": true
   }
 ]

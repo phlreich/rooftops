@@ -35,8 +35,10 @@ HTML = r"""<!DOCTYPE html>
   .chip .dot{width:11px;height:11px;border-radius:50%}
   .chip.free .dot{background:var(--free)}
   .chip.paid .dot{background:var(--paid)}
+  .chip .ic{font-size:13px;line-height:1}
   .chip.off{opacity:.4;filter:grayscale(.6)}
   .chip .cnt{color:var(--muted);font-variant-numeric:tabular-nums}
+  .filters .sep{width:1px;align-self:stretch;background:var(--line);margin:0 3px}
   .layout{flex:1;display:flex;min-height:0}
   #sidebar{width:320px;flex-shrink:0;overflow-y:auto;background:var(--panel);
     border-right:1px solid var(--line)}
@@ -50,6 +52,7 @@ HTML = r"""<!DOCTYPE html>
   .item .nm{font-weight:600;display:flex;align-items:center;gap:7px}
   .item .nm .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
   .item .meta{color:var(--muted);font-size:12px;margin-top:3px}
+  .item .meta .bk{color:#9b95f2}
   #map{flex:1}
   .leaflet-popup-content-wrapper{overflow:hidden;padding:0}
   .leaflet-popup-content{margin:0;font:13px/1.45 system-ui,sans-serif;width:270px!important}
@@ -61,6 +64,7 @@ HTML = r"""<!DOCTYPE html>
   .badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
   .badge.free{background:var(--free)} .badge.paid{background:var(--paid)}
   .badge.cat{background:#3a4150}
+  .badge.book{background:#5b54c9}
   .pop-row{color:#333;margin:3px 0}
   .pop-row b{color:#000}
   .pop-links{margin-top:10px;display:flex;gap:16px;flex-wrap:wrap}
@@ -83,8 +87,13 @@ HTML = r"""<!DOCTYPE html>
       <span class="dot"></span>Free entry <span class="cnt" id="cFree"></span></label>
     <label class="chip paid" id="chipPaid"><input type="checkbox" checked>
       <span class="dot"></span>Paid entry <span class="cnt" id="cPaid"></span></label>
+    <span class="sep"></span>
+    <label class="chip book" id="chipBookReq"><input type="checkbox" checked>
+      <span class="ic">📋</span>Booking required <span class="cnt" id="cBookReq"></span></label>
+    <label class="chip book" id="chipBookNo"><input type="checkbox" checked>
+      <span class="ic">🚶</span>Walk-in <span class="cnt" id="cBookNo"></span></label>
   </div>
-  <div class="note">Entry free/paid is a best-guess by venue type (the official page lists pricing only on each venue's own sub-page) — verify before you go. Source: visitfrankfurt.travel/rooftop-day</div>
+  <div class="note">Entry (free/paid) and booking status are taken from each venue's official Rooftop Day page — still worth confirming there before you go. Source: visitfrankfurt.travel/rooftop-day</div>
 </header>
 <div class="layout">
   <div id="sidebar"></div>
@@ -133,6 +142,7 @@ function popupHtml(v){
       <div class="badges">
         <span class="badge ${v.entry}">${free ? "Free entry" : "Paid entry"}</span>
         <span class="badge cat">${esc(v.category)}</span>
+        ${v.booking ? `<span class="badge book">📋 Booking required</span>` : ""}
       </div>
       <div class="pop-row"><b>From ${esc(v.time)}</b></div>
       <div class="pop-row">${esc(v.description)}</div>
@@ -156,7 +166,7 @@ VENUES.forEach((v, i) => {
     `${thumb}
      <div class="body">
        <div class="nm"><span class="dot" style="background:${COLORS[v.entry]}"></span>${esc(v.name)}</div>
-       <div class="meta">From ${esc(v.time)} · ${esc(v.category)} · ${v.entry === "free" ? "Free" : "Paid"}</div>
+       <div class="meta">From ${esc(v.time)} · ${esc(v.category)} · ${v.entry === "free" ? "Free" : "Paid"}${v.booking ? ` · <span class="bk">📋 Booking</span>` : ""}</div>
      </div>`;
   v._item.onclick = () => {
     map.setView([v.lat, v.lon], 16, {animate:true});
@@ -166,29 +176,38 @@ VENUES.forEach((v, i) => {
 });
 
 const counts = {free:0, paid:0};
-VENUES.forEach(v => counts[v.entry]++);
+const bookCounts = {req:0, no:0};
+VENUES.forEach(v => { counts[v.entry]++; bookCounts[v.booking ? "req" : "no"]++; });
 document.getElementById("cFree").textContent = `(${counts.free})`;
 document.getElementById("cPaid").textContent = `(${counts.paid})`;
+document.getElementById("cBookReq").textContent = `(${bookCounts.req})`;
+document.getElementById("cBookNo").textContent = `(${bookCounts.no})`;
 
 const chipFree = document.getElementById("chipFree");
 const chipPaid = document.getElementById("chipPaid");
+const chipBookReq = document.getElementById("chipBookReq");
+const chipBookNo = document.getElementById("chipBookNo");
 const cbFree = chipFree.querySelector("input");
 const cbPaid = chipPaid.querySelector("input");
+const cbBookReq = chipBookReq.querySelector("input");
+const cbBookNo = chipBookNo.querySelector("input");
 
 function applyFilter(){
-  const show = {free: cbFree.checked, paid: cbPaid.checked};
-  chipFree.classList.toggle("off", !show.free);
-  chipPaid.classList.toggle("off", !show.paid);
+  const entryShow = {free: cbFree.checked, paid: cbPaid.checked};
+  const bookShow = {req: cbBookReq.checked, no: cbBookNo.checked};
+  chipFree.classList.toggle("off", !entryShow.free);
+  chipPaid.classList.toggle("off", !entryShow.paid);
+  chipBookReq.classList.toggle("off", !bookShow.req);
+  chipBookNo.classList.toggle("off", !bookShow.no);
   let vis = 0;
   VENUES.forEach(v => {
-    const on = show[v.entry];
+    const on = entryShow[v.entry] && bookShow[v.booking ? "req" : "no"];
     if (on){ v._marker.addTo(map); v._item.classList.remove("hidden"); vis++; }
     else { map.removeLayer(v._marker); v._item.classList.add("hidden"); }
   });
   document.getElementById("visCount").textContent = vis;
 }
-cbFree.onchange = applyFilter;
-cbPaid.onchange = applyFilter;
+[cbFree, cbPaid, cbBookReq, cbBookNo].forEach(cb => cb.onchange = applyFilter);
 
 applyFilter();
 map.fitBounds(VENUES.map(v => [v.lat, v.lon]), {padding:[40,40]});
