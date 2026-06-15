@@ -30,7 +30,8 @@ HTML = r"""<!DOCTYPE html>
   header .sub{color:var(--muted);font-size:12px}
   .filters{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
   .chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
-    border:1px solid var(--line);background:#1d212a;cursor:pointer;user-select:none;font-size:13px}
+    border:1px solid var(--line);background:#1d212a;color:var(--text);cursor:pointer;
+    font:inherit;font-size:13px;user-select:none}
   .chip input{display:none}
   .chip .dot{width:11px;height:11px;border-radius:50%}
   .chip.free .dot{background:var(--free)}
@@ -92,6 +93,9 @@ HTML = r"""<!DOCTYPE html>
       <span class="ic">📋</span>Booking required <span class="cnt" id="cBookReq"></span></label>
     <label class="chip book" id="chipBookNo"><input type="checkbox" checked>
       <span class="ic">🚶</span>Walk-in <span class="cnt" id="cBookNo"></span></label>
+    <span class="sep"></span>
+    <label class="chip restaurant" id="chipRestaurant"><input type="checkbox" checked>
+      <span class="ic">🍽️</span>Restaurants <span class="cnt" id="cRestaurant"></span></label>
   </div>
   <div class="note">Entry (free/paid) and booking status are taken from each venue's official Rooftop Day page — still worth confirming there before you go. Source: visitfrankfurt.travel/rooftop-day</div>
 </header>
@@ -105,6 +109,11 @@ HTML = r"""<!DOCTYPE html>
 <script>
 const VENUES = __DATA__;
 const COLORS = {free:"#1a9850", paid:"#e0820a"};
+const RESTAURANT_CATEGORIES = new Set(["Restaurant", "Food"]);
+
+function isRestaurant(v){
+  return RESTAURANT_CATEGORIES.has(v.category) || /\brestaurant\b/i.test(v.name);
+}
 
 const map = L.map("map", {scrollWheelZoom:true}).setView([50.110, 8.682], 13);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -178,36 +187,44 @@ VENUES.forEach((v, i) => {
 const counts = {free:0, paid:0};
 const bookCounts = {req:0, no:0};
 VENUES.forEach(v => { counts[v.entry]++; bookCounts[v.booking ? "req" : "no"]++; });
+const restaurantCount = VENUES.filter(isRestaurant).length;
 document.getElementById("cFree").textContent = `(${counts.free})`;
 document.getElementById("cPaid").textContent = `(${counts.paid})`;
 document.getElementById("cBookReq").textContent = `(${bookCounts.req})`;
 document.getElementById("cBookNo").textContent = `(${bookCounts.no})`;
+document.getElementById("cRestaurant").textContent = `(${restaurantCount})`;
 
 const chipFree = document.getElementById("chipFree");
 const chipPaid = document.getElementById("chipPaid");
 const chipBookReq = document.getElementById("chipBookReq");
 const chipBookNo = document.getElementById("chipBookNo");
+const chipRestaurant = document.getElementById("chipRestaurant");
 const cbFree = chipFree.querySelector("input");
 const cbPaid = chipPaid.querySelector("input");
 const cbBookReq = chipBookReq.querySelector("input");
 const cbBookNo = chipBookNo.querySelector("input");
+const cbRestaurant = chipRestaurant.querySelector("input");
 
 function applyFilter(){
   const entryShow = {free: cbFree.checked, paid: cbPaid.checked};
   const bookShow = {req: cbBookReq.checked, no: cbBookNo.checked};
+  const restaurantShow = cbRestaurant.checked;
   chipFree.classList.toggle("off", !entryShow.free);
   chipPaid.classList.toggle("off", !entryShow.paid);
   chipBookReq.classList.toggle("off", !bookShow.req);
   chipBookNo.classList.toggle("off", !bookShow.no);
+  chipRestaurant.classList.toggle("off", !restaurantShow);
   let vis = 0;
   VENUES.forEach(v => {
-    const on = entryShow[v.entry] && bookShow[v.booking ? "req" : "no"];
+    const restaurant = isRestaurant(v);
+    const on = entryShow[v.entry] && bookShow[v.booking ? "req" : "no"] &&
+      (restaurantShow || !restaurant);
     if (on){ v._marker.addTo(map); v._item.classList.remove("hidden"); vis++; }
     else { map.removeLayer(v._marker); v._item.classList.add("hidden"); }
   });
   document.getElementById("visCount").textContent = vis;
 }
-[cbFree, cbPaid, cbBookReq, cbBookNo].forEach(cb => cb.onchange = applyFilter);
+[cbFree, cbPaid, cbBookReq, cbBookNo, cbRestaurant].forEach(cb => cb.onchange = applyFilter);
 
 applyFilter();
 map.fitBounds(VENUES.map(v => [v.lat, v.lon]), {padding:[40,40]});
